@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bandit Write ups | Keegan Usher</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mr Dafoe">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <meta name="description" content="A little bit about me, some projects, and other things." />
+    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="../css/writeupStyles.css" rel="stylesheet" />
+    <meta name="author" content="Keegan" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Write-ups</a>
+              <ul class="dropdown-menu">
+                <li><span class="dd-heading">Bandit</span><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="banditlevel0.html">Level 0</a></li>
+                <li><a class="dropdown-item" href="banditlevel1.html">Level 1</a></li>
+                <li><a class="dropdown-item" href="banditlevel2.html">Level 2</a></li>
+                <li><a class="dropdown-item" href="banditlevel3.html">Level 3</a></li>
+                <li><a class="dropdown-item" href="banditlevel4.html">Level 4</a></li>
+                <li><a class="dropdown-item" href="banditlevel5.html">Level 5</a></li>
+                <li><a class="dropdown-item" href="banditlevel6.html">Level 6</a></li>
+                <li><a class="dropdown-item" href="banditlevel7.html">Level 7</a></li>
+                <li class="active"><a class="dropdown-item" href="./banditlevel8.html">Level 8</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header>
+      <div class="container">
+        <h1>Over the Wire - Bandit Level 8</h1>
+      </div>
+    </header>
+    <main>
+      <div id="writeup">
+      <section class="container-md">
+        <article class="levelInfo">
+          <h2>Level Information</h2>
+          <ul>
+            <li>Host Name: bandit.labs.overthewire.org</li>
+            <li>Username: bandit8</li>
+            <li>Password: <span class="blur">TESKZC0XvTetK0S9xNwm25STk5iWrBvP</span></li>
+            <li>Port Number: 2220</li>
+          </ul>
+        </article>
+        <article class="levelGoal">
+          <h2>Level Goal</h2>
+          <p>
+            The password for the next level is stored in the file data.txt and is the only line of text that occurs only once.
+          </p>
+        </article>
+        <article class="commands">
+          <h2>Commands you may need to solve this level</h2>
+          <ul class="commandList">
+            <li>grep,</li>
+            <li>sort,</li>
+            <li>uniq,</li>
+            <li>strings,</li>
+            <li>base64,</li>
+            <li>tr,</li>
+            <li>tar,</li>
+            <li>gzip,</li>
+            <li>bzip2,</li>
+            <li>xxd</li>
+          </ul>
+        <table class="table commandsTable">
+          <caption class="smallText">* Not all commands listed will be needed</caption>
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>Explanation</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>grep</td>
+            <td>Print lines matching a pattern</td>
+          </tr>
+          <tr>
+            <td>sort</td>
+            <td>Sort lines of text files</td>
+          </tr>
+          <tr>
+            <td>uniq</td>
+            <td>Report or omit repeated lines</td>
+          </tr>
+          <tr>
+            <td>strings</td>
+            <td>Print the strings of printable characters in files</td>
+          </tr>
+          <tr>
+            <td>base64</td>
+            <td>base64 encode/decode data and print to standard output</td>
+          </tr>
+          <tr>
+            <td>tr</td>
+            <td>translate or delete characters</td>
+          </tr>
+          <tr>
+            <td>tar</td>
+            <td>The GNU version of the tar archiving utility</td>
+          </tr>
+          <tr>
+            <td>gzip</td>
+            <td>compress or expand files</td>
+          </tr>
+          <tr>
+            <td>bzip2</td>
+            <td>a block-sorting file compressor, v1.0.6</td>
+          </tr>
+          <tr>
+            <td>xxd</td>
+            <td>make a hexdump or do the reverse</td>
+          </tr>
+          <tbody>
+          </tbody>
+        </table>
+        <p class="smallText"><a href="https://explainshell.com" target="_blank">https://explainshell.com</a> is a good site to search up Ubuntu's man page repository.</p>
+        </article>
+        <article class="writeup">
+          <h2>Write up</h2>
+          <ol>
+            <li>
+              Step one would be to locate the data.txt file. Run the ls command to pull the list of files and folders.
+              <code>
+                bandit8@bandit:&#126;&#36; ls <br />
+                data.txt
+              </code>
+              And here is the file in the home directory.
+            </li>
+            <li>
+              Now we want to search the file for the only line of text that occurs only once. So, let's look through our list of commands... Uniq seems to be exactly what we need for this task. If we run 'uniq data.txt' we will notice that the same thing is returned as if we used cat to read the file. To figure this out lets look at the man pages. Under the description for uniq it says "Filter <b><u>adjacent</u></b> matching lines from INPUT, writing to OUTPUT." The key word here is adjacent. The duplicate lines must be next to each other in order for uniq to catch it.
+            </li>
+            <li>
+              So, looking through the list of commands again we see the sort command. We probably need to sort the file first before using the uniq command. If you ran each command one step at a time you can see the progression of running these commands on the file. Just running "sort data.txt" you can see that it groups everything together in alphabetical order.
+              <code>
+                bandit8@bandit:&#126;&#36; sort data.txt <br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0TTLuJ0jGXQM5Knk21Ghi4iisHYJOfzI<br />
+                0TTLuJ0jGXQM5Knk21Ghi4iisHYJOfzI<br />
+                0TTLuJ0jGXQM5Knk21Ghi4iisHYJOfzI
+              </code>
+              Next let's pipe the output of sort to uniq "sort data.txt | uniq". Here we can see that all the groupings are gone.
+              <code>
+                bandit8@bandit:&#126;&#36; sort data.txt | uniq <br />
+                0OvPFQCx2OI01VN7AwqUcOd4cqR9Ecg9<br />
+                0TTLuJ0jGXQM5Knk21Ghi4iisHYJOfzI<br />
+                0V6GeVMoo5JJLhXGq0kEYSEXz1F4RD31<br />
+                1aj22eYarp5vixqBvRUbsOhBtkdI2yoQ<br />
+                1wfF9tInmCoPs0YXZiCKbPZJSPn1sEaC<br />
+                3emkK8imP2xGVGmsyk3pBV3iGN95QWUJ<br />
+                4GLsgBdz0b1JA8cR5vH9CiX1jCAT3TF1<br />
+                4nl1vgXcs3wdgdbQjbh6JF4kR2vNUVOK<br />
+                5jR7RYLuNfGBG86ek0hNFPyVH0jT5alz<br />
+                67t9oP2hokb2EwnpyVZ9JfX4iPuqFhwN<br />
+                68qUzJZLuOIw5a6iPi2CVsxlP6l0wgaS<br />
+                6hXvdZamDJFnfKX8O8UZPVjZpjeqeq6M<br />
+                7HNLPWyymsBFNjZJVPRro4zPh2p1imsN
+              </code>
+              Uniq by default will merge matching lines, so there is still a good list of potential passwords. Remember that we are looking for the only uniq line. Back in the man pages we can see that uniq has a flag that will only print unique lines. Now let's rerun the previous command with the -u flag for uniq.
+              <code>
+                bandit8@bandit:&#126;&#36; sort data.txt | uniq -u <br />
+                <span class="blur">EN632PlfYiZbn3PhVK3XOGSlNInNE00t</span>
+              </code>
+              And there is the password for the next level <span class="blur">(EN632PlfYiZbn3PhVK3XOGSlNInNE00t)</span>.
+            </li>
+            <li>
+              And don’t forget to use the login username of bandit9 for the next level.
+            </li>
+          </ol>
+        </article>
+        <article class="lessonsLearned">
+          <h2>Learned:</h2>
+          <ul>
+            <li>That sorting your lines before applying some commands can help with the results.</li>
+            <li>How to use the uniq command.</li>
+          </ul>
+        </article>
+        <!-- <article class="resources">
+          <h2>Resources</h2>
+          <ul>
+            <li><a href="https://www.cyberciti.biz/faq/bash-find-exclude-all-permission-denied-messages/" target="_blank">https://www.cyberciti.biz/faq/bash-find-exclude-all-permission-denied-messages/</a></li>
+          </ul>
+        </article> -->
+    </section>
+  </div>
+  </main>
+  <footer>
+    <p>
+    This project is made as a part of <a href="https://www.roppers.org/" target="_blank">Hopper Roppers Academy</a>! Please visit <a href="https://www.roppers.org/" target="_blank">roppers.org</a> to sign up for the best place to take your first steps into computer security.
+    </p>
+  </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <script src="../js/scripts.js"></script>
+  </body>
+</html>
