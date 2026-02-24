@@ -55,7 +55,7 @@
           <ul>
             <li>Host Name: bandit.labs.overthewire.org</li>
             <li>Username: bandit8</li>
-            <li>Password: <span class="blur">TESKZC0XvTetK0S9xNwm25STk5iWrBvP</span></li>
+            <li>Password: <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span></li>
             <li>Port Number: 2220</li>
           </ul>
         </article>
@@ -184,14 +184,15 @@
               Uniq by default will merge matching lines, so there is still a good list of potential passwords. Remember that we are looking for the only uniq line. Back in the man pages we can see that uniq has a flag that will only print unique lines. Now let's rerun the previous command with the -u flag for uniq.
               <code>
                 bandit8@bandit:&#126;&#36; sort data.txt | uniq -u <br />
-                <span class="blur">EN632PlfYiZbn3PhVK3XOGSlNInNE00t</span>
+                <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span>
               </code>
-              And there is the password for the next level <span class="blur">(EN632PlfYiZbn3PhVK3XOGSlNInNE00t)</span>.
+              And here is the flag that we wanted to capture to gain access into bandit level 9.
             </li>
             <li>
-              And don’t forget to use the login username of bandit9 for the next level.
+              And don't forget to use the login username of bandit9 for the next level.
             </li>
           </ol>
+          <p>* Please note that the password is not shown as per Over The Wire's request.</p>
         </article>
         <article class="lessonsLearned">
           <h2>Learned:</h2>

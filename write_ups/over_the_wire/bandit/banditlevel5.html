@@ -55,7 +55,7 @@
           <ul>
             <li>Host Name: bandit.labs.overthewire.org</li>
             <li>Username: bandit5</li>
-            <li>Password: <span class="blur">lrIWWI6bB37kxfiCQZqUdOIYfr6eEeqR</span></li>
+            <li>Password: <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span></li>
             <li>Port Number: 2220</li>
           </ul>
         </article>
@@ -121,14 +121,14 @@
           <h2>Write up</h2>
           <ol>
             <li>
-              Step one would be to locate the inhere directory. Run the ls command to pull the list of files and folders. This shows that the inhere directory is in the home directory. Now to change the directory that we are in we need to use the ‘cd’ command (cd inhere).
+              Step one would be to locate the inhere directory. Run the ls command to pull the list of files and folders. This shows that the inhere directory is in the home directory. Now to change the directory that we are in we need to use the 'cd' command (cd inhere).
               <code>
                 bandit5@bandit:&#126;&#36; ls <br />
                 inhere
               </code>
             </li>
             <li>
-              Let’s take a peak in the inhere file to see what we are working with. Use the ls -a in case there are some hidden files.
+              Let's take a peak in the inhere file to see what we are working with. Use the ls -a in case there are some hidden files.
               <code>
                 bandit5@bandit:&#126;/inhere&#36; ls -a <br />
                 maybehere00  maybehere04  maybehere08  maybehere12  maybehere16<br />
@@ -138,7 +138,7 @@
               </code>
             </li>
             <li>
-              Now that we are in the inhere directory we need to search for a human readable file, that is 1033 bytes in size, and is not an executable file. Looking through the list of recommended commands I think the ‘find’ command would be the best one to use here since its purpose is to search for files in a directory hierarchy. Let’s look through the list of flags to find which ones fit the criteria of the file. After searching the man pages for find we will use -type f because we are looking for a file. -size 1033c to look for a file that is 1033 in bytes, the c signifies bytes. ! -executable, the ! stands not than -executable, so we are saying not executable. The full command would be find ./ -type f -size 1033c ! -executable.
+              Now that we are in the inhere directory we need to search for a human readable file, that is 1033 bytes in size, and is not an executable file. Looking through the list of recommended commands I think the 'find' command would be the best one to use here since its purpose is to search for files in a directory hierarchy. Let's look through the list of flags to find which ones fit the criteria of the file. After searching the man pages for find we will use -type f because we are looking for a file. -size 1033c to look for a file that is 1033 in bytes, the c signifies bytes. ! -executable, the ! stands not than -executable, so we are saying not executable. The full command would be find ./ -type f -size 1033c ! -executable.
             </li>
             <li>
               So let's run our find command and see if anything is found.
@@ -152,14 +152,15 @@
               Now we will read the file with cat.
               <code>
                 bandit5@bandit:~/inhere$ cat maybehere07/.file2<br />
-                <span class="blur">P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU</span>
+                <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span>
               </code>
-              And there is the password for the next level <span class="blur">(P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU)</span>.
+              And here is the flag that we wanted to capture to gain access into bandit level 6.
             </li>
             <li>
-              And don’t forget to use the login username of bandit6 for the next level.
+              And don't forget to use the login username of bandit6 for the next level.
             </li>
           </ol>
+          <p>* Please note that the password is not shown as per Over The Wire's request.</p>
         </article>
         <article class="lessonsLearned">
           <h2>Learned:</h2>

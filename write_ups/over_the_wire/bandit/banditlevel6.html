@@ -55,7 +55,7 @@
           <ul>
             <li>Host Name: bandit.labs.overthewire.org</li>
             <li>Username: bandit6</li>
-            <li>Password: <span class="blur">P4L4vucdmLnm8I7Vl7jG1ApGSfjYKqJU</span></li>
+            <li>Password: <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span></li>
             <li>Port Number: 2220</li>
           </ul>
         </article>
@@ -129,7 +129,7 @@
               Ok, for this challenge we are given a directory or file name to search for so it would be a waste of time to look through directories one at a time. So, let's look through the list of commands that may help solve this puzzle. Looking... Yes, the find command appears to be the perfect command for this job.
             </li>
             <li>
-              Once we figure out an incantation that we want to try with the find command let's plug it in and see what it returns. Find / -type f -user bandit7 -group bandit6 -size 33c 2> /dev/null. -type f is for file, -user is searching for a file that belongs to this user, -group is searching for a file that belongs to the given group then 2> /dev/null is redirecting STDERR to a non existing file so the pesky ‘Permission Denied’ messages don’t appear.
+              Once we figure out an incantation that we want to try with the find command let's plug it in and see what it returns. Find / -type f -user bandit7 -group bandit6 -size 33c 2> /dev/null. -type f is for file, -user is searching for a file that belongs to this user, -group is searching for a file that belongs to the given group then 2> /dev/null is redirecting STDERR to a non existing file so the pesky 'Permission Denied' messages don't appear.
               <code>
                 bandit6@bandit:&#126;&#36; find / -type f -user bandit7 -group bandit6 -size 33c 2> /dev/null <br />
                 /var/lib/dpkg/info/bandit7.password
@@ -139,20 +139,21 @@
               Now we will read the file with cat.
               <code>
                 bandit6@bandit:&#126;&#36; cat /var/lib/dpkg/info/bandit7.password<br />
-                <span class="blur">z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S</span>
+                <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span>
               </code>
-              And there is the password for the next level <span class="blur">(z7WtoNQU2XfjmMtWA8u5rN4vzqu4v99S)</span>.
+              And here is the flag that we wanted to capture to gain access into bandit level 7.
             </li>
             <li>
-              And don’t forget to use the login username of bandit7 for the next level.
+              And don't forget to use the login username of bandit7 for the next level.
             </li>
           </ol>
+          <p>* Please note that the password is not shown as per Over The Wire's request.</p>
         </article>
         <article class="lessonsLearned">
           <h2>Learned:</h2>
           <ul>
             <li>How to search a file for a user and group.</li>
-            <li>How to send STDERR to a null file so you don’t have to deal with seeing the errors.</li>
+            <li>How to send STDERR to a null file so you don't have to deal with seeing the errors.</li>
           </ul>
         </article>
         <article class="resources">
