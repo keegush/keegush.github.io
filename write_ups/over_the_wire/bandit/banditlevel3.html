@@ -55,7 +55,7 @@
             <ul>
               <li>Host Name: bandit.labs.overthewire.org</li>
               <li>Username: bandit3</li>
-              <li>Password: <span class="blur">aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG</span></li>
+              <li>Password: <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span></li>
               <li>Port Number: 2220</li>
             </ul>
           </article>
@@ -114,32 +114,33 @@
           <h2>Write up</h2>
           <ol>
             <li>
-              Step one would be to locate the inhere directory. Run the ls command to pull the list of files and folders. This shows that the inhere directory is in the home directory. Now to change the directory that we are in we need to use the ‘cd’ command (cd inhere).
+              Step one would be to locate the inhere directory. Run the ls command to pull the list of files and folders. This shows that the inhere directory is in the home directory. Now to change the directory that we are in we need to use the 'cd' command (cd inhere).
               <code>
                 bandit3@bandit:&#126;&#36; ls <br />
                 inhere
               </code>
             </li>
             <li>
-              Step two, Now that we are in the inhere directory we need to search for a hidden file.  Just using ‘ls’ by itself will show hidden files, you must use a flag with the ‘ls’ command to show hidden files. Hidden files by the way are files that start with a . (period) and they sometimes help keep honest people honest by hiding them from view. Now let's use the ‘ls’ command with the ‘-a’ flag (ls -a). The ‘ls’ command shows that there is only 1 file so we must assume that it is the file we are looking for since we don’t know the name of the file we are looking for.
+              Step two, Now that we are in the inhere directory we need to search for a hidden file.  Just using 'ls' by itself will show hidden files, you must use a flag with the 'ls' command to show hidden files. Hidden files by the way are files that start with a . (period) and they sometimes help keep honest people honest by hiding them from view. Now let's use the 'ls' command with the '-a' flag (ls -a). The 'ls' command shows that there is only 1 file so we must assume that it is the file we are looking for since we don't know the name of the file we are looking for.
               <code>
                 bandit3@bandit:&#126;&#36; ls <br />
                 bandit3@bandit:&#126;/inhere&#36; ls -a <br />
-                .  ..  .hidden
+                .  ..  ...Hiding_From_You
               </code>
             </li>
             <li>
               Step three, we need to open or read the file. Hidden files can be opened like any other file with cat (cat .hidden). And here is the flag that we wanted to capture. This is the password to log into bandit level 4.
               <code>
-                bandit3@bandit:&#126;/inhere&#36; cat .hidden <br />
-                <span class="blur">2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe</span>
+                bandit3@bandit:&#126;/inhere&#36; cat ...Hiding_From_You <br />
+                <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span>
               </code>
-              And here is the flag that we wanted to capture. This is the password to log into bandit level 4. <span class="blur">(2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe)</span>
+              And here is the flag that we wanted to capture to gain access into bandit level 4.
             </li>
             <li>
-              And don’t forget to use the login username of bandit4 for the next level.
+              And don't forget to use the login username of bandit4 for the next level.
             </li>
           </ol>
+          <p>* Please note that the password is not shown as per Over The Wire's request.</p>
         </article>
         <article class="lessonsLearned">
           <h2>Learned:</h2>
