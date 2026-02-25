@@ -145,10 +145,7 @@
               And here is the file in the home directory.
             </li>
             <li>
-              Now we want to search the file for the only human-readable line of text that is preceded by several '=' characters. 
-            </li>
-            <li>
-              I first want to take a look at this file to see what we are working with. So, taking lessons learned from previous challenges, I am going to use tail to view the contents of this file.
+              Now we want to search the file for the only human-readable line of text that is preceded by several '=' characters. But first want to take a look at this file to see what we are working with. So, taking lessons learned from previous challenges, I am going to use tail to view the contents of this file.
               <code>
                 bandit9@bandit:&#126;&#36; tail data.txt <br />
                 �!po��␦�␦3X-�����`�Ω�����b8���V栏c�N�(�|k�^4���6��&�y��<br />
@@ -161,23 +158,23 @@
               That is a mess. You would think that it would be easy to look through the file and find the readable text. But this is a large file and it would be much quicker to find a useful linux command.
             </li>
             <li>
-              Let's look through our list of commands I see that "strings" might be useful in showing printable characters, I am hoping that translates to readable. 
+              Let's look through our list of commands and see what we can find. The "strings" command might be useful in showing printable characters, I am hoping that translates to readable. 
               <code>
                 bandit9@bandit:&#126;&#36; strings data.txt <br />
-                [;{.
-                ~>#~
-                $3YT
-                0*\3o
-                062D
-                ;0a\$>
-                ...
+                [;{.<br />
+                ~>#~<br />
+                $3YT<br />
+                0*\3o<br />
+                062D<br />
+                ;0a\$><br />
+                ...<br />
               </code>
               And we see that it did infact remove all the gibberish unreadable text. This list was much longer and I was able to easily find the password but I want to go a step further and see if I can shrink this list of readable text. 
             </li>
             <li>
-              So, looking through the list of commands again we see the grep command. And the goal of the level mentioned that the password is preceded by '=' characters. Let's pipe our strings results into grep looking for strings with the '=' character.
+              So, looking through the list of commands again we see the grep command. And the goal of the level mentioned was that the password is preceded by '=' characters. Let's pipe our strings results into grep looking for strings with the '=' character.
               <code>
-                bandit9@bandit:&#126;&#36; strings data.txt | grep "=" <br />
+                bandit9@bandit:&#126;&#36; strings data.txt | grep = <br />
                 ========== the<br />
                 9=H`<br />
                 [!#=Z<br />
@@ -193,6 +190,14 @@
                 ========== <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span><br />
                 '+Y=+<br />
               </code>
+              Okay, this is a little cleaner. After some google searching I discovered that a carrot '^' matches start of line. So let's give that a try.
+              <code>
+                bandit9@bandit:&#126;&#36; strings data.txt | grep ^= <br />
+                ========== the<br />
+                ========== password<br />
+                =LGT<br />
+                ========== <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span><br />
+              </code>
               That did shorten the list and makes the password a lot easier to see.
               And here is the flag that we wanted to capture to gain access into bandit level 10.
             </li>
@@ -200,6 +205,31 @@
               And don't forget to use the login username of bandit10 for the next level.
             </li>
           </ol>
+          <h3>Alternate Solutions</h3>
+          <ul>
+            <li>
+              After a bit more research I found a more advanced technique using some grep flags and regex.
+              <code>
+                bandit9@bandit:&#126;&#36; strings data.txt | grep -oP '={2,}\K.*' <br />
+                  ========== the<br />
+                  ========== password<br />
+                  ========== is<br />
+                  ========== <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span><br />
+              </code>
+            </li>
+            <li>
+              And you can see that they give a nice little message pointing right to the password.
+              How this <code>grep -oP '={2,}.*'</code> command works:
+              <ul>
+                <li><code>-o</code> — print only the matched part</li>
+                <li><code>-P</code> — enable Perl-compatible regex</li>
+                <li><code>={2,}</code> — match 2 or more <code>=</code> signs</li>
+                <li><code>.*</code> — match everything to the end of the line</li>
+              </ul>
+              And to clean it up even more and remove the '=' use this command <code>grep -oP '={2,}\K.*'</code>
+              The <code>\K</code> — "forget" the <code>=</code> signs (reset the match start to here).
+            </li>
+          </ul>
           <p>* Please note that the password is not shown as per Over The Wire's request.</p>
         </article>
         <article class="lessonsLearned">
