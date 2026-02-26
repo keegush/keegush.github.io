@@ -32,12 +32,12 @@
                 <li><a class="dropdown-item" href="banditlevel2.html">Level 2</a></li>
                 <li><a class="dropdown-item" href="banditlevel3.html">Level 3</a></li>
                 <li><a class="dropdown-item" href="banditlevel4.html">Level 4</a></li>
-                <li class="active"><a class="dropdown-item" href="./banditlevel5.html">Level 5</a></li>
+                <li><a class="dropdown-item" href="banditlevel5.html">Level 5</a></li>
                 <li><a class="dropdown-item" href="banditlevel6.html">Level 6</a></li>
                 <li><a class="dropdown-item" href="banditlevel7.html">Level 7</a></li>
                 <li><a class="dropdown-item" href="banditlevel8.html">Level 8</a></li>
                 <li><a class="dropdown-item" href="banditlevel9.html">Level 9</a></li>
-                <li><a class="dropdown-item" href="banditlevel10.html">Level 10</a></li>
+                <li class="active"><a class="dropdown-item" href="./banditlevel10.html">Level 10</a></li>
               </ul>
             </li>
           </ul>
@@ -46,7 +46,7 @@
     </nav>
     <header>
       <div class="container">
-        <h1>Over the Wire - Bandit Level 5</h1>
+        <h1>Over the Wire - Bandit Level 10</h1>
       </div>
     </header>
     <main>
@@ -56,7 +56,7 @@
           <h2>Level Information</h2>
           <ul>
             <li>Host Name: bandit.labs.overthewire.org</li>
-            <li>Username: bandit5</li>
+            <li>Username: bandit10</li>
             <li>Password: <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span></li>
             <li>Port Number: 2220</li>
           </ul>
@@ -64,23 +64,22 @@
         <article class="levelGoal">
           <h2>Level Goal</h2>
           <p>
-            The password for the next level is stored in a file somewhere under the inhere directory and has all of the following properties:
-            <ul>
-             <li>human-readable</li>
-             <li>1033 bytes in size</li>
-             <li>not executable</li>
-            </ul>
+            The password for the next level is stored in the file data.txt, which contains base64 encoded data.
           </p>
         </article>
         <article class="commands">
           <h2>Commands you may need to solve this level</h2>
           <ul class="commandList">
-            <li>ls,</li>
-            <li>cd,</li>
-            <li>cat,</li>
-            <li>file,</li>
-            <li>du,</li>
-            <li>find</li>
+            <li>grep,</li>
+            <li>sort,</li>
+            <li>uniq,</li>
+            <li>strings,</li>
+            <li>base64,</li>
+            <li>tr,</li>
+            <li>tar,</li>
+            <li>gzip,</li>
+            <li>bzip2,</li>
+            <li>xxd</li>
           </ul>
         <table class="table commandsTable">
           <caption class="smallText">* Not all commands listed will be needed</caption>
@@ -91,28 +90,44 @@
             </tr>
           </thead>
           <tr>
-            <td>ls</td>
-            <td>List directory contents</td>
+            <td>grep</td>
+            <td>Print lines matching a pattern</td>
           </tr>
           <tr>
-            <td>cd</td>
-            <td>Change the working directory</td>
+            <td>sort</td>
+            <td>Sort lines of text files</td>
           </tr>
           <tr>
-            <td>cat</td>
-            <td>Concatenate files and print on the standard output</td>
+            <td>uniq</td>
+            <td>Report or omit repeated lines</td>
           </tr>
           <tr>
-            <td>file</td>
-            <td>Determine file type</td>
+            <td>strings</td>
+            <td>Print the strings of printable characters in files</td>
           </tr>
           <tr>
-            <td>du</td>
-            <td>Estimate file space usage</td>
+            <td>base64</td>
+            <td>base64 encode/decode data and print to standard output</td>
           </tr>
           <tr>
-            <td>find</td>
-            <td>Search for files in a directory hierarchy</td>
+            <td>tr</td>
+            <td>translate or delete characters</td>
+          </tr>
+          <tr>
+            <td>tar</td>
+            <td>The GNU version of the tar archiving utility</td>
+          </tr>
+          <tr>
+            <td>gzip</td>
+            <td>compress or expand files</td>
+          </tr>
+          <tr>
+            <td>bzip2</td>
+            <td>a block-sorting file compressor, v1.0.6</td>
+          </tr>
+          <tr>
+            <td>xxd</td>
+            <td>make a hexdump or do the reverse</td>
           </tr>
           <tbody>
           </tbody>
@@ -123,43 +138,31 @@
           <h2>Write up</h2>
           <ol>
             <li>
-              Step one would be to locate the inhere directory. Run the ls command to pull the list of files and folders. This shows that the inhere directory is in the home directory. Now to change the directory that we are in we need to use the 'cd' command (cd inhere).
+              Step one would be to locate the data.txt file. Run the ls command to pull the list of files and folders.
               <code>
-                bandit5@bandit:&#126;&#36; ls <br />
-                inhere
+                bandit9@bandit:&#126;&#36; ls <br />
+                data.txt
               </code>
+              Here is the file in the home directory.
             </li>
             <li>
-              Let's take a peak in the inhere file to see what we are working with. Use the ls -a in case there are some hidden files.
+              Let's take a peak inside the file and see what we are working with.
               <code>
-                bandit5@bandit:&#126;/inhere&#36; ls -a <br />
-                maybehere00  maybehere04  maybehere08  maybehere12  maybehere16<br />
-                maybehere01  maybehere05  maybehere09  maybehere13  maybehere17<br />
-                maybehere02  maybehere06  maybehere10  maybehere14  maybehere18<br />
-                maybehere03  maybehere07  maybehere11  maybehere15  maybehere19
+                bandit10@bandit:&#126;&#36; tail data.txt <br />
+                VGhlIHBhc3N3b3JkIGlzIGR0UjE3M2ZaS2IwUlJzREZTR3NnMlJXbnBOVmozcVJyCg==<br />
               </code>
+              So this is what base64 encoded data looks like. Let us look into how we can decode this file.
             </li>
             <li>
-              Now that we are in the inhere directory we need to search for a human readable file, that is 1033 bytes in size, and is not an executable file. Looking through the list of recommended commands I think the 'find' command would be the best one to use here since its purpose is to search for files in a directory hierarchy. Let's look through the list of flags to find which ones fit the criteria of the file. After searching the man pages for find we will use -type f because we are looking for a file. -size 1033c to look for a file that is 1033 in bytes, the c signifies bytes. ! -executable, the ! stands not than -executable, so we are saying not executable. The full command would be find ./ -type f -size 1033c ! -executable.
-            </li>
-            <li>
-              So let's run our find command and see if anything is found.
+              Looking through our list of commands the choice seems pretty obvious. I will go to explainshell.com to figure out how to use the base64 command, be right back... Well there is a decode flag for this command so let's use the enchantation with the decode flag.
               <code>
-                bandit5@bandit:&#126;/inhere&#36; ind ./ -type f -size 1033c ! -executable <br />
-                ./maybehere07/.file2
+                bandit10@bandit:&#126;&#36; base64 --decode data.txt <br />
+                The password is <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span> <br />
               </code>
-              Score! A single file appears, and it is a hidden file in the maybehere07 directory.
+              And here is the flag that we wanted to capture to gain access into bandit level 11. 
             </li>
             <li>
-              Now we will read the file with cat.
-              <code>
-                bandit5@bandit:~/inhere$ cat maybehere07/.file2<br />
-                <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span>
-              </code>
-              And here is the flag that we wanted to capture to gain access into bandit level 6.
-            </li>
-            <li>
-              And don't forget to use the login username of bandit6 for the next level.
+              And don't forget to use the login username of bandit11 for the next level.
             </li>
           </ol>
           <p>* Please note that the password is not shown as per Over The Wire's request.</p>
@@ -167,19 +170,13 @@
         <article class="lessonsLearned">
           <h2>Learned:</h2>
           <ul>
-            <li>How to search for a non-executable file.</li>
-          </ul>
-        </article>
-        <article class="notes">
-          <h2>Notes:</h2>
-          <ul>
-            <li>It took about 10 - 15 minutes to google how to search for a non-executable file but I am glad I stuck with it and learned more about the find command.</li>
+            <li>How to decode a base64 encoded file.</li>
           </ul>
         </article>
         <article class="resources">
           <h2>Resources</h2>
           <ul>
-            <li><a href="https://stackoverflow.com/questions/70539901/how-can-i-find-all-non-executable-files-in-a-directory-in-linux " target="_blank">https://stackoverflow.com/questions/70539901/how-can-i-find-all-non-executable-files-in-a-directory-in-linux </a></li>
+            <li><a href="https://explainshell.com/explain/1/base64" target="_blank">https://explainshell.com/explain/1/base64</a></li>
           </ul>
         </article>
     </section>
