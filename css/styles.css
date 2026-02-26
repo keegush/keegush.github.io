@@ -75,6 +75,9 @@ main section {
   padding-bottom: 2em;
   background-color: white;
 }
+code.inline {
+  display: inline-block;
+}
 
 footer {
     color: white;

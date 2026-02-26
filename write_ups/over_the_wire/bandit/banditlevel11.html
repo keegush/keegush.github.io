@@ -37,7 +37,8 @@
                 <li><a class="dropdown-item" href="banditlevel7.html">Level 7</a></li>
                 <li><a class="dropdown-item" href="banditlevel8.html">Level 8</a></li>
                 <li><a class="dropdown-item" href="banditlevel9.html">Level 9</a></li>
-                <li class="active"><a class="dropdown-item" href="./banditlevel10.html">Level 10</a></li>
+                <li><a class="dropdown-item" href="banditlevel10.html">Level 10</a></li>
+                <li class="active"><a class="dropdown-item" href="./banditlevel11.html">Level 11</a></li>
               </ul>
             </li>
           </ul>
@@ -46,7 +47,7 @@
     </nav>
     <header>
       <div class="container">
-        <h1>Over the Wire - Bandit Level 10</h1>
+        <h1>Over the Wire - Bandit Level 11</h1>
       </div>
     </header>
     <main>
@@ -56,7 +57,7 @@
           <h2>Level Information</h2>
           <ul>
             <li>Host Name: bandit.labs.overthewire.org</li>
-            <li>Username: bandit10</li>
+            <li>Username: bandit11</li>
             <li>Password: <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span></li>
             <li>Port Number: 2220</li>
           </ul>
@@ -64,7 +65,7 @@
         <article class="levelGoal">
           <h2>Level Goal</h2>
           <p>
-            The password for the next level is stored in the file data.txt, which contains base64 encoded data.
+            The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
           </p>
         </article>
         <article class="commands">
@@ -138,9 +139,9 @@
           <h2>Write up</h2>
           <ol>
             <li>
-              Step one would be to locate the data.txt file. Run the ls command to pull the list of files and folders.
+              Step one, like usual, would be to locate the data.txt file. Run the ls command to pull the list of files and folders.
               <code>
-                bandit10@bandit:&#126;&#36; ls <br />
+                bandit11@bandit:&#126;&#36; ls <br />
                 data.txt
               </code>
               Here is the file in the home directory.
@@ -148,21 +149,24 @@
             <li>
               Let's take a peak inside the file and see what we are working with.
               <code>
-                bandit10@bandit:&#126;&#36; tail data.txt <br />
-                VGhlIHBhc3N3b3JkIGlzIGR0UjE3M2ZaS2IwUlJzREZTR3NnMlJXbnBOVmozcVJyCg==<br />
+                bandit11@bandit:&#126;&#36; tail data.txt <br />
+                Gur cnffjbeq vf 7k16JArUVv5LxVuJfsSVdbbtaHGlw9D4<br />
               </code>
-              So this is what base64 encoded data looks like. Let us look into how we can decode this file.
+              Remember from the level goal that each character has been rotated 13 positions. We could break out an alphabet chart and start counting each back 13 spots but I don't think that is the purpose of this exercise.
             </li>
             <li>
-              Looking through our list of commands the choice seems pretty obvious. I will go to explainshell.com to figure out how to use the base64 command, be right back... Well there is a decode flag for this command so let's use the enchantation with the decode flag.
+              Looking through our list of commands it appears that the tr command is the one to go with but I will need to do some more research... I went to explainshell.com and looked at the man page for tr and that still didn't help clear things up. So, I did find a stack overflow answer that helped solve this problem.
               <code>
-                bandit10@bandit:&#126;&#36; base64 --decode data.txt <br />
+                bandit11@bandit:&#126;&#36; cat data.txt | tr 'a-z' 'n-za-m' | tr 'A-Z' 'N-ZA-M' <br />
                 The password is <span class="blur">aaaaaaaaaaaaaaaaaaaaa</span> <br />
               </code>
-              And here is the flag that we wanted to capture to gain access into bandit level 11. 
+              And here is the flag that we wanted to capture to gain access into bandit level 12.
+              </li>
+              <li>
+              Let's break this command down. <code class="inline">cat data.txt</code> returns the string inside of the data.txt file that we want to manipulate. <code class="inline"> | tr 'a-z' 'n-za-m'</code> the pipe takes the <code class="inline">cat</code> returned value and pumps it into <code class="inline">tr</code>, then you define what to look for and lowercase letters only looks for lowercase letters. Add a space, the space is very important, then what to replace the character with. Then you do the same with uppercase letters. I learned this is called ROT13 and ROT13 is special is the since that it is the halfway point in the english alphabet so it doesn't matter is <code class="inline">'a-z'</code> is first or <code class="inline">'n-za-m'</code> is first.
             </li>
             <li>
-              And don't forget to use the login username of bandit11 for the next level.
+              And don't forget to use the login username of bandit12 for the next level.
             </li>
           </ol>
           <p>* Please note that the password is not shown as per Over The Wire's request.</p>
@@ -170,13 +174,14 @@
         <article class="lessonsLearned">
           <h2>Learned:</h2>
           <ul>
-            <li>How to decode a base64 encoded file.</li>
+            <li>How to rotate a string 13 characters and how to decode a ROT13 string with the tr command.</li>
           </ul>
         </article>
         <article class="resources">
           <h2>Resources</h2>
           <ul>
             <li><a href="https://explainshell.com/explain/1/base64" target="_blank">https://explainshell.com/explain/1/base64</a></li>
+            <li><a href="https://stackoverflow.com/questions/6441260/how-to-shift-each-letter-of-the-string-by-a-given-number-of-letters" target="_blank">https://stackoverflow.com/questions/6441260/how-to-shift-each-letter-of-the-string-by-a-given-number-of-letters</a></li>
           </ul>
         </article>
     </section>
